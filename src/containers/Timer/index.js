@@ -1,7 +1,6 @@
 //таймер
 import React from 'react';
 import {
-  changeInterval,
   increaseInterval,
   decreaseInterval
 } from '../../redux/actionCreator';
@@ -13,21 +12,27 @@ import Stopwatch from '../../components/Stopwatch';
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {currentTime: 0};
   }
 
-  handleStart() {
-    setTimeout(() => this.setState({
-      currentTime: this.state.currentTime + this.props.currentInterval,
-    }), this.props.currentInterval)
+  tick() {
+    this.setState({currentTime: this.state.currentTime + 1});
   }
 
-  handleStop() {
-    this.setState({ currentTime: 0 })
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
-  componentDidUpdate(){
-      console.log('DidUpdate',this.props);
+  handleStart = () => {
+    this.timerID = setInterval(
+      () => this.tick(),
+      this.props.currentInterval*1000
+    );
+  }
+
+  handleStop = () => {
+    clearInterval(this.timerID);
+    this.setState({currentTime: 0});
   }
 
   render() {

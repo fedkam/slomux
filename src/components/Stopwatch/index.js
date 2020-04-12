@@ -1,9 +1,9 @@
 //секундомер
 import React from 'react';
 
-const Stopwatch = (props) => (
+const Stopwatch = ({currentTime=''}) => (
   <div>
-    Секундомер: {props.currentTime} сек.
+    Секундомер: {currentTime} сек.
   </div>
 );
 
