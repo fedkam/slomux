@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function createStore(rootReducer, initialState) {
   let state = rootReducer(initialState, { type: "INIIIT" });
   const subscribers = [];
@@ -16,5 +18,10 @@ function createStore(rootReducer, initialState) {
     }
   };
 }
+
+createStore.propTypes = {
+  initialState: PropTypes.node,
+  rootReducer: PropTypes.func
+};
 
 export default createStore;

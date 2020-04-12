@@ -1,5 +1,6 @@
 //таймер
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   increaseInterval,
   decreaseInterval
@@ -15,14 +16,6 @@ class Timer extends React.Component {
     this.state = {currentTime: 0};
   }
 
-  tick() {
-    this.setState({currentTime: this.state.currentTime + 1});
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
   handleStart = () => {
     this.timerID = setInterval(
       () => this.tick(),
@@ -33,6 +26,14 @@ class Timer extends React.Component {
   handleStop = () => {
     clearInterval(this.timerID);
     this.setState({currentTime: 0});
+  }
+
+  tick() {
+    this.setState({currentTime: this.state.currentTime + 1});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   render() {
@@ -55,15 +56,20 @@ class Timer extends React.Component {
   }
 }
 
+SetInterval.propTypes = {
+  currentInterval: PropTypes.number,
+  decreaseInterval: PropTypes.func,
+  increaseInterval: PropTypes.func
+};
+
 const mapStateToProps = (state) => ({
-  currentInterval: state.currentInterval,
-  currentInterval2: state.currentInterval2
-})
+  currentInterval: state.currentInterval
+});
 
 const mapDispatchToProps = (dispatch) => ({
   increaseInterval: () => dispatch(increaseInterval()),
   decreaseInterval: () => dispatch(decreaseInterval())
-})
+});
 
 export default connect(
   mapStateToProps,

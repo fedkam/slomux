@@ -1,4 +1,7 @@
-import {INCREASE_INTERVAL, DECREASE_INTERVAL} from "./types";
+import {
+  INCREASE_INTERVAL,
+  DECREASE_INTERVAL
+} from './types';
 
 const initinalState = {currentInterval: 1};
 

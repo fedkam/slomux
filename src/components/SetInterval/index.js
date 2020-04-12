@@ -1,5 +1,6 @@
 //интервал обновления
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SetInterval = ({currentInterval, decreaseInterval, increaseInterval}) => (
   <>
@@ -8,10 +9,16 @@ const SetInterval = ({currentInterval, decreaseInterval, increaseInterval}) => (
     </span>
 
     <span>
-      <button onClick={() => decreaseInterval()}>-</button>
-      <button onClick={() => increaseInterval()}>+</button>
+      <button onClick={() => decreaseInterval()}> - </button>
+      <button onClick={() => increaseInterval()}> + </button>
     </span>
   </>
 );
+
+SetInterval.propTypes = {
+  currentInterval: PropTypes.number,
+  decreaseInterval: PropTypes.func,
+  increaseInterval: PropTypes.func
+};
 
 export default SetInterval;

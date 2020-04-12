@@ -1,5 +1,6 @@
 import React from "react";
 import ReactReduxContext from "./ReactReduxContext";
+import PropTypes from 'prop-types';
 
 const connect = (mapStateToProps, mapDispatchToProps) => Component => {
   class WrappedComponent extends React.Component {
@@ -10,21 +11,30 @@ const connect = (mapStateToProps, mapDispatchToProps) => Component => {
           {...mapStateToProps(this.context.getState(), this.props)}
           {...mapDispatchToProps(this.context.dispatch, this.props)}
         />
-      );
+      )
     }
+
     componentDidMount() {
       this.unsubscribe = this.context.subscribe(this.handleChange);
     }
+
     componentWillUnmount() {
       this.unsubscribe();
     }
+
     handleChange = () => {
       // = () => для того чтоб не handleChange.bind(this) при передаче. (сохр. окруж.)
       this.forceUpdate();
-    };
+    }
   }
 
   WrappedComponent.contextType = ReactReduxContext;
+
+  WrappedComponent.propTypes = {
+    currentInterval: PropTypes.node,
+    mapStateToProps: PropTypes.func,
+    mapDispatchToProps: PropTypes.func
+  };
 
   return WrappedComponent;
 };
