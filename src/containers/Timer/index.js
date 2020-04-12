@@ -17,10 +17,12 @@ class Timer extends React.Component {
   }
 
   handleStart = () => {
-    this.timerID = setInterval(
-      () => this.tick(),
-      this.props.currentInterval*1000
-    );
+    if(this.props.currentInterval > 0){
+      this.timerID = setInterval(
+        () => this.tick(),
+        this.props.currentInterval*1000
+      );
+    }
   }
 
   handleStop = () => {
