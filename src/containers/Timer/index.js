@@ -16,12 +16,22 @@ class Timer extends React.Component {
     this.state = {currentTime: 0};
   }
 
-  handleStart = () => {
-    if(this.props.currentInterval > 0){
+  
+  tick = () => {
+    console.log('tick', this.props.currentInterval)
+    this.setState({currentTime: this.state.currentTime + this.props.currentInterval});
+  }
+
+  createInterval = () => (
       this.timerID = setInterval(
-        () => this.tick(),
+        this.tick,
         this.props.currentInterval*1000
-      );
+      )
+  )
+
+  handleStart = () => {
+    if(this.props.currentInterval > 0 ){
+      this.createInterval();
     }
   }
 
@@ -30,12 +40,20 @@ class Timer extends React.Component {
     this.setState({currentTime: 0});
   }
 
-  tick() {
-    this.setState({currentTime: this.state.currentTime + this.props.currentInterval});
+  componentDidUpdate(prevProps){
+    if (
+        this.props.currentInterval !== prevProps.currentInterval &&
+        this.state.currentTime !== 0
+    ) {
+      console.log(this.props.currentInterval+' '+prevProps.currentInterval);
+      clearInterval(this.timerID);
+      this.handleStart();
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
+    this.handleStart();
   }
 
   render() {

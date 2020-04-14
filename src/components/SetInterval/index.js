@@ -9,8 +9,8 @@ const SetInterval = ({currentInterval, decreaseInterval, increaseInterval}) => (
     </span>
 
     <span>
-      <button onClick={() => decreaseInterval()}> - </button>
-      <button onClick={() => increaseInterval()}> + </button>
+      <button type='button' onClick={() => decreaseInterval()}> - </button>
+      <button type='button' onClick={() => increaseInterval()}> + </button>
     </span>
   </>
 );
