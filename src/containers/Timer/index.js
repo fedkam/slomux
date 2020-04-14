@@ -53,7 +53,6 @@ class Timer extends React.Component {
           handleStart={this.handleStart}
           handleStop={this.handleStop}
         />
-        
       </div>
     )
   }
