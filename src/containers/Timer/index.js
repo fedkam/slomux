@@ -31,7 +31,7 @@ class Timer extends React.Component {
   changeInterval = (prevProps) => {
     if (
       this.props.currentInterval !== prevProps.currentInterval &&
-      this.state.currentTime !== 0
+      this.startedTimer
     ) {
       clearInterval(this.timerID);
       this.createInterval();
@@ -48,7 +48,7 @@ class Timer extends React.Component {
   }
 
   handleStart = () => {
-    if(this.props.currentInterval > 0 && !this.startedTimer){
+    if(!this.startedTimer){
       this.createInterval();
     }
     this.startedTimer = true;
@@ -61,6 +61,7 @@ class Timer extends React.Component {
 
   componentDidUpdate(prevProps){
     this.changeInterval(prevProps);
+    console.log('')
   }
 
   componentWillUnmount() {
