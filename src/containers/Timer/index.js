@@ -16,19 +16,13 @@ class Timer extends React.Component {
     this.state = {currentTime: 0};
   }
 
-<<<<<<< HEAD
-  
   tick = () => {
     console.log('tick', this.props.currentInterval)
     this.setState({currentTime: this.state.currentTime + this.props.currentInterval});
   }
 
   createInterval = () => (
-=======
-  handleStart = () => {
-    if(this.props.currentInterval > 0 ){
->>>>>>> 501d6170e53df9abf466cc5252be4756409fd4b0
-      this.timerID = setInterval(
+    this.timerID = setInterval(
         this.tick,
         this.props.currentInterval*1000
       )
