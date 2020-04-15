@@ -14,6 +14,7 @@ class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {currentTime: 0};
+    this.startedTimer = false;
   }
 
   tick = () => {
@@ -21,33 +22,47 @@ class Timer extends React.Component {
     this.setState({currentTime: this.state.currentTime + this.props.currentInterval});
   }
 
-  createInterval = () => (
+  createInterval = () => {
     this.timerID = setInterval(
         this.tick,
         this.props.currentInterval*1000
-      )
-  )
+    )
+  }
 
-  handleStart = () => {
-    if(this.props.currentInterval > 0 ){
+  changeInterval = (prevProps) => {
+    if (
+      this.props.currentInterval !== prevProps.currentInterval &&
+      this.state.currentTime !== 0
+    ) {
+      clearInterval(this.timerID);
       this.createInterval();
+    }else if(
+      this.props.currentInterval <= 0
+    ) {
+      clearInterval(this.timerID);
     }
   }
 
-  handleStop = () => {
+  resetInterval = () => {
     clearInterval(this.timerID);
     this.setState({currentTime: 0});
   }
 
-  componentDidUpdate(prevProps){
-    if (
-        this.props.currentInterval !== prevProps.currentInterval &&
-        this.state.currentTime !== 0
-    ) {
-      console.log(this.props.currentInterval+' '+prevProps.currentInterval);
-      clearInterval(this.timerID);
-      this.handleStart();
+  handleStart = () => {
+    if(this.props.currentInterval > 0 && !this.startedTimer){
+      this.createInterval();
     }
+    this.startedTimer = true;
+  }
+
+  handleStop = () => {
+    this.resetInterval();
+    this.startedTimer = false;
+  }
+
+  componentDidUpdate(prevProps){
+    this.changeInterval(prevProps);
+    console.log('startedTimer', this.startedTimer);
   }
 
   componentWillUnmount() {
