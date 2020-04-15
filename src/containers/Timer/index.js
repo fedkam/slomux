@@ -18,7 +18,6 @@ class Timer extends React.Component {
   }
 
   tick = () => {
-    console.log('tick', this.props.currentInterval)
     this.setState({currentTime: this.state.currentTime + this.props.currentInterval});
   }
 
@@ -62,7 +61,6 @@ class Timer extends React.Component {
 
   componentDidUpdate(prevProps){
     this.changeInterval(prevProps);
-    console.log('startedTimer', this.startedTimer);
   }
 
   componentWillUnmount() {
